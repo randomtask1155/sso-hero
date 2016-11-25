@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SSO-Hero</title>
+  <link href="/img/hero.ico" name="favicon" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hero.css">
+  <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/hero.js"></script>
+
+
+<script type="text/javascript">
+var AUTHENTICATED_TYPE = {{.AuthenticatedType}}; // used to know if we are authenticated after redirect 
+var GrantType = {{.AuthType}}; // value of $GRANT_TYPE env variable 
+</script>
+
+<!-- put in the audio tags https://www.freesound.org -->
+<audio id="a-herofly" src="sound/herofly.wav" preload="auto" type="audio/wav"></audio>
+<audio id="a-herostrength" src="sound/strength.wav" preload="auto" type="audio/wav"></audio>
+<audio id="a-heroinvisible" src="sound/invisible.wav" preload="auto" type="audio/wav"></audio>
+
+<audio id="a-noscope" src="sound/nopower.mp3" preload="auto" type="audio/mpeg"></audio>
+<audio id="a-portal" src="sound/portal.wav" preload="auto" type="audio/wav"></audio>
+
+</head>
+<!-- purpole #961574 -->
+<!-- blue #08225C -->
+<body bgcolor="#E8E8E8" onload="CheckURLParams(); GenNavBar(); PrintMainView();">
+  
+  
+  <div class="container">
+    
+    <div id="NAVBAR"></div>
+    
+    <div class="jumbotron GradientBackground" id="mainView"></div>
+    <div id="hero-control-panel" style="display: none;">
+      <div id="DisplayGrantType"></div>      
+      <p>
+        <ol>
+          <li>Click <strong>Authenticate</strong> and observe the web application trace logs get populated
+            <ul>
+              <li><strong>authorization_code</strong> type the browser will jump to the web server endpoint /authorization_code
+                <ol>
+                  <li>sso-hero server will redirect browser to UAA authorization endpoint</li>
+                  <li>Once user logs in with UAA user account they get redirected back to sso-hero server at endpoint /authorization_callback</li>
+                  <li>The sso-hero server now has the authorization code and uses it to issue token request to UAA token endpoint. This request is in the application trace window</li>
+                  <li>The response to the token request is also logged in the application trace window</li>
+                  <li>Assuming all goes well the application trace logs will have the access and refresh token information</li>
+                </ol>
+              </li>
+              <li><strong>password</strong> type you will be prompted to enter a username and password
+                <ul>
+                  <li>sso-hero app will request a access token from the uaa server using your username and password and all interactions are logged in the application trace window</li>
+                </ul>
+              </li>
+              <li><strong>implicit</strong> is javascript based and most of the work is done directly in the browser.All the work here happens in the web browser so the application trace logs will be prety empty. If you need to trace these interactions then use your browsers favorit inspector tools.
+                <ul>
+                  <li>Browser asks server for implicit url and then redirects itself to the url which includes the web apps client id</li>
+                  <li>Once the access token is granted uaa will redirect browser to <strong>/authorization_callback endpoint</strong>. but all of the token info will be paramitied in URI as <strong>https://app#access_token=...&expires_in=...</strong></li>
+                  <li>For example purposes the browser will inform sso-hero-implicit app what the token details are so we can populate the application trace logs.  But as you can will see sso-hero-implicit does not issue the token request</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>Proceed to click on the powers to right of the hero.  A power represents a scope the sso-hero app was granted access to use on the users behalf. checkmark means the scope was granted and 'x' means the app or user does not have permission for that scope
+            <ol>
+              <li>sso-hero app sends resource request to hero server using the access_token acquired in one of the authenticatoin steps</li>
+              <li>the hero server requests the UAA verify the token using the check_token endpoint</li>
+              <li>uaa responds to hero server with token details</li>
+              <li>all http requests and responses are logged in the hero trace window</li>
+            </ol>
+          </li>
+        </ol>
+      </p>
+      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+          <button type="button" onclick="Authenticate();" class="btn btn-primary">Authenticate</button>
+        </div>
+      </div>
+    </div> <!-- end hero-control-panel -->
+      <p></p> <!-- blank space -->   
+  
+      <!-- Modal -->
+      <div class="modal fade" id="CredentialsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Crendentials Prompt</h4>
+            </div>
+            <div class="modal-body">
+              
+              <form>
+                <div class="form-group">
+                  <label for="formUsername">Username</label>
+                  <input type="text" class="form-control" id="formUsername" aria-describedby="input username" placeholder="user1">
+                </div>
+                <div class="form-group">
+                  <label for="formPassword">Password</label>
+                  <input type="password" class="form-control" id="formPassword" placeholder="Password">
+                </div>
+              </form>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="PasswordAuthExecute();">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- end MODAL -->
+     
+  </div> <!-- end container -->
+  
+  <div class="container-fluid">
+  <div class="row">
+      <div id="Tracers"></div>
+  </div> <!-- end row -->
+</div>  <!-- End container-fluid -->
+  
+</body>
+</html>

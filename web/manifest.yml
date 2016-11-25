@@ -1,0 +1,15 @@
+---
+applications:
+  - name: sso-hero
+    memory: 128M
+    instances: 1
+    buildpack: https://github.com/kr/heroku-buildpack-go.git
+    command: web
+env:
+  #SCOPE: power.fly+power.strength+power.invisibility
+  HEROSERVER: http://hero.cfapps-07.haas-59.pez.pivotal.io
+  #GRANT_TYPE: authorization_code
+  GRANT_TYPE: password
+  #GRANT_TYPE: implicit
+services:
+  - sso-danl

@@ -1,0 +1,74 @@
+
+/*.navbar.center .navbar-inner {
+    text-align: center;
+}
+.navbar.center .navbar-inner .nav {
+    float: none;
+    display:inline-block;
+}*/
+
+
+
+
+a {
+  color: #961574;
+}
+
+p {
+  color: #08225C;
+}
+
+body {
+  background-color: #E8E8E8;
+}
+
+strong {
+  color: #961574;
+}
+
+/* http://uigradients.com/ */
+.GradientBackground {
+  background: -webkit-linear-gradient(left, #ffffff , #abbaab); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #ffffff, #abbaab); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #ffffff, #abbaab); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #ffffff , #abbaab); /* Standard syntax */
+}
+
+.heropanels {
+  background: #08225C; 
+}
+
+.powerrow {
+  display: table;
+}
+
+.powercol {
+  float: none;
+  display: table-cell;
+  vertical-align: middle;
+  horizontal-align: left;
+}
+
+/*
+[class*="col-"] {
+  float: none;
+  display: table-cell;
+  vertical-align: middle;
+  horizontal-align: left;
+}
+
+.vertical {
+  display: inline-flex;
+  width: 200px;
+  height: 15px;
+  -webkit-transform: rotate(-90deg); 
+  transform: rotate(-90deg);
+  
+}
+.vertical {
+  box-shadow: inset 0px 4px 6px #ccc;
+}
+.progress-bar {
+  box-shadow: inset 0px 4px 6px rgba(100,100,100,0.6);
+  vertical-align: middle;
+}*/

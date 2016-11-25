@@ -1,0 +1,11 @@
+---
+applications:
+  - name: hero
+    memory: 128M
+    instances: 1
+    buildpack: https://github.com/kr/heroku-buildpack-go.git
+    command: hero
+services:
+  - sso-danl
+env:
+  GRANT_TYPE: client_credentials

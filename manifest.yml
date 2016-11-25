@@ -1,0 +1,52 @@
+---
+applications:
+  - name: sso-hero-implicit
+    path: ./web/
+    memory: 128M
+    instances: 1
+    buildpack: https://github.com/kr/heroku-buildpack-go.git
+    command: web
+    env:
+      #SCOPE: power.fly+power.strength+power.invisibility
+      GRANT_TYPE: implicit
+    services:
+      - sso-danl
+      
+  - name: sso-hero-web
+    path: ./web/
+    memory: 128M
+    instances: 1
+    buildpack: https://github.com/kr/heroku-buildpack-go.git
+    command: web
+    env:
+      #SCOPE: power.fly+power.strength+power.invisibility
+      GRANT_TYPE: authorization_code
+    services:
+      - sso-danl
+  - name: sso-hero-mobile
+    path: ./web/
+    memory: 128M
+    instances: 1
+    buildpack: https://github.com/kr/heroku-buildpack-go.git
+    command: web
+    env:
+      #SCOPE: power.fly+power.strength+power.invisibility
+      GRANT_TYPE: password
+    services:
+      - sso-danl
+      
+  - name: hero
+    path: ./hero/
+    memory: 128M
+    instances: 1
+    buildpack: https://github.com/kr/heroku-buildpack-go.git
+    command: hero
+    env:
+      GRANT_TYPE: client_credentials
+    
+    
+services:
+    - sso-danl
+env:
+  HEROSERVER: http://hero.cfapps-07.haas-59.pez.pivotal.io
+
