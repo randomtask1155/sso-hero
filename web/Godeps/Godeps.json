@@ -1,0 +1,15 @@
+{
+	"ImportPath": "sso-hero/web",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v74",
+	"Deps": [
+		{
+			"ImportPath": "sso-hero/auth",
+			"Rev": "2e0bb165f4e20e8d632f189a86c9ac400dc14b9b"
+		},
+		{
+			"ImportPath": "sso-hero/tracer",
+			"Rev": "2e0bb165f4e20e8d632f189a86c9ac400dc14b9b"
+		}
+	]
+}
