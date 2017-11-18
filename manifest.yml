@@ -48,5 +48,5 @@ applications:
 services:
     - sso-danl
 env:
-  HEROSERVER: http://hero.cfapps-07.haas-59.pez.pivotal.io
+  HEROSERVER: https://hero.apps.domain
 
