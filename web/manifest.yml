@@ -7,7 +7,7 @@ applications:
     command: web
 env:
   #SCOPE: power.fly+power.strength+power.invisibility
-  HEROSERVER: http://hero.cfapps-07.haas-59.pez.pivotal.io
+  HEROSERVER: http://hero.apps.domain
   #GRANT_TYPE: authorization_code
   GRANT_TYPE: password
   #GRANT_TYPE: implicit
