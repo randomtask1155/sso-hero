@@ -7,8 +7,8 @@ applications:
     buildpack: https://github.com/kr/heroku-buildpack-go.git
     command: web
     env:
-      #SCOPE: power.fly+power.strength+power.invisibility
       GRANT_TYPE: implicit
+      SSO_SCOPES: power.fly, power.invisibility, power.strength
     services:
       - sso-danl
       
@@ -19,8 +19,8 @@ applications:
     buildpack: https://github.com/kr/heroku-buildpack-go.git
     command: web
     env:
-      #SCOPE: power.fly+power.strength+power.invisibility
       GRANT_TYPE: authorization_code
+      SSO_SCOPES: power.fly, power.invisibility, power.strength
     services:
       - sso-danl
   - name: sso-hero-mobile
@@ -30,8 +30,8 @@ applications:
     buildpack: https://github.com/kr/heroku-buildpack-go.git
     command: web
     env:
-      #SCOPE: power.fly+power.strength+power.invisibility
       GRANT_TYPE: password
+      SSO_SCOPES: power.fly, power.invisibility, power.strength
     services:
       - sso-danl
       
